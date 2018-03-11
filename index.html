@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>vBless</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="app.css">
+</head>
+
+<body ng-app="myApp">
+
+	<div ng-include="'views/header.html'"></div>
+	<br/><br/><br/>
+	<div class="container theme-showcase"
+		style="background-color: white;">
+		<div ng-view></div>
+	</div>
+	<div ng-include="'views/footer.html'"></div>
+
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"></script>
+	<script src="js/adal.js"></script>
+	<script src="js/adal-angular.js"></script>
+	<script src="viewModels/app.js"></script>
+	<script src="viewModels/route.js"></script>
+	<script src="viewModels/service.js"></script>
+	<script src="viewModels/controller.js"></script>
+	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
