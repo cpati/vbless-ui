@@ -35,7 +35,7 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 myApp.service('httpService',['$http',function($http){
-	  var serverHost="http://docker.for.mac.localhost:5051/"
+	  var serverHost="http://localhost:5051/"
 		this.get=function(url){
 			console.log("httpService get");
 			return $http.get(serverHost+url);
