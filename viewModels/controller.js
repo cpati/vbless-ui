@@ -1,7 +1,7 @@
 /* userProfileController Implementation Start */
 myApp.controller('userProfileController',
-		['$scope', '$http', 'httpPost', 'httpService','$location','adalAuthenticationService',
-		function($scope, $http, httpPost, httpService, $location, adalService) {
+		['$scope', '$http', 'httpPost', 'httpService','$location',
+		function($scope, $http, httpPost, httpService, $location) {
 	console.log("userProfileController");
 	$scope.userid=$scope.userInfo.userName;
 
@@ -283,31 +283,22 @@ myApp.controller('shareController', function($scope, $http, $location) {
 
 /* logoutController Implementation Start */
 myApp.controller('logoutController',
-	['$scope', '$http', 'httpPost', '$location','adalAuthenticationService',
-	function($scope, $http, httpPost, $location, adalService) {
+	['$scope', '$http', 'httpPost', '$location',
+	function($scope, $http, httpPost, $location) {
 	console.log("logoutController");
 	$scope.logout = function(){
-		adalService.logOut();
+		
 	}
 }]);
 
 
 /* loginController Implementation Start */
 myApp.controller('loginController',
-	['$scope', '$http', 'httpPost', '$location','adalAuthenticationService',
-	function($scope, $http, httpPost, $location, adalService) {
+	['$scope', '$http', 'httpPost', '$location',
+	function($scope, $http, httpPost, $location) {
 	console.log("LoginController");
 	$scope.login = function(){
-		adalService.login();
-
-		$rootScope.adminGroupId = "65ae1fea-6e30-4488-a8c9-b7b3cddbb779";
-		var groups = $rootScope.userInfo.profile.groups;
-		if(groups.includes($rootScope.adminGroupId)) {
-			$rootScope.isAdmin = "true";
-		}else {
-			$rootScope.isAdmin = "false";
-		}
-
+		
 	}
 
 }]);

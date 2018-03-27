@@ -1,4 +1,4 @@
 'use strict';
 
-var myApp = angular.module('myApp', [ 'ngRoute' ,'AdalAngular']);
+var myApp = angular.module('myApp', [ 'ngRoute']);
 
