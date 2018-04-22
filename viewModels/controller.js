@@ -1,8 +1,10 @@
 /* userProfileController Implementation Start */
+
 myApp.controller('userProfileController',
 		['$scope', '$http', 'httpPost', 'httpService','$location',
 		function($scope, $http, httpPost, httpService, $location) {
 	console.log("userProfileController");
+
 	$scope.userid=$scope.userInfo.userName;
 
 
@@ -56,11 +58,17 @@ myApp.controller('homeController',
 		function($scope, $http, httpPost, httpService, operation, $location, $rootScope) {
 	console.log("homeController initialized");
 //	$rootScope.userId=null; /**This needs to be commented out**/
-	$scope.userId=$scope.userInfo.userName;
+//supreetha hardcoded tenant id and user id and isAdmin for now
+console.log("test:"+$rootScope.test);
+  $rootScope.isAdmin = "true";
+  //$rootScope.tenantId=100;
+	$scope.userId=1;
+
+	//$scope.userId=$scope.userInfo.userName;
 	$scope.campaigns=[];
-	$rootScope.userInfo.isAuthenticated=true; //chida
+	//$rootScope.userInfo.isAuthenticated=true; //chida
 	//chida $http.get("/campaigns/").then(function(data){
-	httpService.get("/campaigns/").then(function(data){
+	httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
 		console.log("chida home campaigns");
 		console.log(data);
 		$scope.campaigns=data.data;
@@ -78,6 +86,8 @@ myApp.controller('homeController',
 
 }]);
 
+//hard code end
+
 /* campaignController Implementation Start */
 myApp.controller('campaignController',function($scope, httpPost, httpService, operation, $location, $http,httpService, campaign,$routeParams,$rootScope) {
 	console.log("campaignController initialized");
@@ -92,12 +102,13 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 		$rootScope.isAdmin = "false";
 	}*/
 	$rootScope.isAdmin = "true"; //true
+	//$rootScope.tenantId =100;
 	$scope.campaign={};
 	console.log($routeParams.ID);
 	if ($routeParams.ID != null && $routeParams.ID != undefined) {
 		console.log("getting campaign")
 		//chida $http.get("/campaigns/"+$routeParams.ID).then(function(data){
-		httpService.get("/campaigns/"+$routeParams.ID).then(function(data){
+		httpService.get("/"+$rootScope+"/campaigns/"+$routeParams.ID).then(function(data){
 			$scope.campaign=data.data;
 			var createDate=new Date($scope.campaign.createDate);
 			$scope.campaign.createDate=createDate;
@@ -118,9 +129,12 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 			console.log("saveFormData");
 
 //			$scope.campaign.userId=1; /********This needs to be changed*********/
-			$scope.campaign.userId=$scope.userInfo.userName;
+//supreetha hardcoding for now. later to be taken from actual user details
+    	$scope.campaign.userId=1;
+		//$scope.userId=$scope.userInfo.userName;
+
 			//chida $http.post('/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
-			httpService.post('/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
+			httpService.post('/' + $rootScope.tenantId + '/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
 				if(response.data){
 					fileUpload(response.data.campaignId);
 					$location.path("/list");
@@ -131,7 +145,7 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 				var fd = new FormData();
 				fd.append('fileUpload', $scope.fileUpload);
 				 //chida $http.post('/campaigns/uploadfile/'+campaignId, fd, {
-				 httpService.post('/campaigns/uploadfile/'+campaignId, fd, {
+				 httpService.post('/'+$rootScope.tenantId+'/campaigns/uploadfile/'+campaignId, fd, {
 			            transformRequest: angular.identity,
 			            headers: {'Content-Type': undefined}
 			        })
@@ -149,12 +163,17 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 /* viewCampaignController Implementation Start */
 myApp.controller('viewCampaignController', function($rootScope,$scope, $http,httpService, $routeParams,$location,$q) {
 	console.log("viewCampaignController");
-	$scope.userid=$scope.userInfo.userName;
+	//supreetha hardcoding for now. later to be taken from actual user details
+	  $scope.userId=1;
+	//$scope.userid=$scope.userInfo.userName;
+
+  $rootScope.userInfo.userName=='creator@vBless.onmicrosoft.com';
+
 	$scope.campaign = null;
 	$scope.percentComplete=10;
 
 	//chida $http.get("/campaigns/"+$routeParams.ID)
-	httpService.get("/campaigns/"+$routeParams.ID)
+	httpService.get("/"+$rootScope.tenantId+"/campaigns/"+$routeParams.ID)
 		 .then(function(data){
 			$scope.campaign=data.data;
 			console.log("campaign data1" + $scope.campaign);
@@ -182,7 +201,10 @@ myApp.controller('campaignListController', function($scope, httpPost,
 		operation, $location, $http, httpService, $rootScope) {
 	console.log("campaignListController initialized");
 //	$rootScope.userId=1; /**This needs to be commented out**/
-	$scope.userId=$scope.userInfo.userName;
+
+//supreetha hardcoding for now. later to be taken from actual user details
+    	$scope.userId=1;
+//	$scope.userId=$scope.userInfo.userName;
 	$scope.updateFormData = function() {
 		operation.setType('update');		//Mandatory
 		operation.setId($scope.cid);		//Mandatory
@@ -190,9 +212,10 @@ myApp.controller('campaignListController', function($scope, httpPost,
 	};
 
 	$scope.campaigns=[];
-
+	//supreetha hardcoded tenant id and user id for now
+	 // $rootScope.tenantId=100;
 	//chida $http.get("/campaigns/").then(function(data){
-	httpService.get("/campaigns/").then(function(data){
+	httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
 		console.log("chida list campaigns");
 		console.log(data);
 		$scope.campaigns=data.data;
@@ -216,7 +239,7 @@ myApp.controller('manageCampaignController', function($rootScope,$scope, $http,h
 	//$scope.campaignId=1;
 
 	//chida $http.get("/campaigns/").then(function(data){
-	httpService.get("/campaigns/").then(function(data){
+	httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
 		$scope.campaigns=data.data;
 		console.log($scope.campaigns);
 	});
@@ -260,12 +283,10 @@ myApp.controller('manageCampaignController', function($rootScope,$scope, $http,h
 /* updateCampaignStatusController Implementation Start
 myApp.controller('updateCampaignStatusController', function($rootScope,$scope, $http,$routeParams,$location) {
 	console.log("updateCampaignStatusController");
-
 	$scope.updateCampaign=function(){
 		console.log("In update campaign Status: " + $scope.myVar);
 //		$location.path("/manageCampaigns/"+$routeParams.ID);
 	}
-
 });*/
 
 
@@ -287,7 +308,7 @@ myApp.controller('logoutController',
 	function($scope, $http, httpPost, $location) {
 	console.log("logoutController");
 	$scope.logout = function(){
-		
+
 	}
 }]);
 
@@ -298,7 +319,7 @@ myApp.controller('loginController',
 	function($scope, $http, httpPost, $location) {
 	console.log("LoginController");
 	$scope.login = function(){
-		
+
 	}
 
 }]);
