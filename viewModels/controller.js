@@ -131,7 +131,11 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 
 //			$scope.campaign.userId=1; /********This needs to be changed*********/
 //supreetha hardcoding for now. later to be taken from actual user details
+<<<<<<< HEAD
     	$scope.campaign.userId=11;
+=======
+    	$scope.campaign.userId=1;
+>>>>>>> 42a5646b824bcce391eebe4ef606618db2a1c996
 		//$scope.userId=$scope.userInfo.userName;
 
 			//chida $http.post('/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
