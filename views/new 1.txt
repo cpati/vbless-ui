@@ -1,0 +1,64 @@
+
+
+GET: carried data in address url ; less secured
+we used for listing the campaign data (we can use post also )
+
+campaign list -
+
+URL - http://localhost:5051/campaigns/cam/Suspended
+
+POST :secured (carries data in hidden format) ; we used for create campaign
+
+create campaign -
+POST : URL - http://localhost:5051/campaigns/
+HEADER: Content_type = application/json
+BODY - 
+
+{
+	
+	"tenantId":21,
+	"userId":11,
+	"status":"active",
+	"city":"delhi",
+	"country":"india",
+	"goal":"nothing",
+	"campaignDescription":"campaignDescription"
+	
+	
+}
+
+update campaign -
+PUT : URL - http://localhost:5051/campaigns/
+HEADER : content_type = application/json
+BODY -
+
+{
+	
+	"campaignId":43,
+	"tenantId":3,
+	"campaignTitle":"Save-Earth",
+	"city":"delhi",
+	"country":"india"
+	
+	
+}
+
+Delete Campaign -
+Delete : URL - http://localhost:5051/campaigns/43
+
+
+
+
+
+removed the refrences of foreign keys (wrt. campaign_user id)....so that user_id ref can work
+shows create querry for creating campaign table:
+				show create table vbless.campaign;
+drop foreign key from campaign table_drop campaign_user table
+alter table vbless.campaign drop foreign key FKe8r60o3mrwb0auxt4tbl5hkvc
+drop campaign_user table
+
+
+
+--------------
+search for "database script querry" in internet ; querry to generate script that can create a db same to your own db 
+--------------------------------------------

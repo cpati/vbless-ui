@@ -2,7 +2,7 @@
 	<form>
 		<div class="col-md-12">
 			<div class="col-md-2">
-				<img height="150" alt="Image preview..." width="150">
+				<img height="150" alt="Image preview..." width="150" ng-model="campaign.blurb"  src="data:image/png;base64,{{campaign.imageBlob}}">
 			</div>
 
 			<div class="col-md-10">
@@ -120,23 +120,26 @@
 				<div class="col-md-12 divpadding">
 					<div class="col-md-3">
 						<label title="Created Date" >Created
-							Date</label>
-					</div>
-					<div class="col-md-3" >
-						<input type="date" class="form-control" ng-show="editMode"
-							ng-model="campaign.createDate" placeholder="Created Date" /> <label
-							title="Created Date" class="summary" ng-hide="editMode">{{createdDate}}</label>
+							Date{{createdDate}}</label>
 					</div>
 					
-					    <div class="col-md-6">
+					<div class="col-md-3" >
+						<input type="date" class="form-control" ng-show="editMode" placeholder="Created Date" 
+						ng-model="{{campaign.createdDate}}" ng-data="{{campaign.createdDate}}" ng-bind="{{campaign.createdDate}}" /> 
+						<label
+						title="Created Date" class="summary" ng-hide="editMode">
+						</label>
+					</div>
+					
+					<div class="col-md-6">
 					    
-						<button class="pull-right btn btn-success" value="Cancel"  style="margin-left:10px ;
+					<button class="pull-right btn btn-success" value="Cancel"  style="margin-left:10px ;
 							ng-click="clearFormData()" ng-show="editMode">Cancel</button>
 						
-						<button class="pull-right btn btn-danger" value="Create"  
+					<button class="pull-right btn btn-danger" value="Create"  
 							ng-click="saveFormData()" ng-show="editMode">Publish</button>
 
-						</div>
+					</div>
 				</div>
 	</form>
 </div>

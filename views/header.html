@@ -15,20 +15,20 @@
 				<ul class="nav navbar-nav">
 					<li><a href="#list">Campaigns</a></li>
 					<li><a href="#createCampaign">Create Campaign</a></li>
-					<li><a href="#manageCampaigns" ng-show="" 
+					<li><a href="#manageCampaigns" ng-show="isAdmin"
 					title="profile">Manage Campaigns</a></li>
 					<li><a target="_blank" href="https://us-west-2b.online.tableau.com/#/site/bbvbless/views"
-					ng-show="">
+					ng-show="isAdmin">
 					BI @ Tableau</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#userProfile" ng-show="" title="profile">Welcome {{userInfo.userName}}</a></li>
 							<li class="pull-right"><a ng-controller="logoutController" ng-click="logout()" ng-show="" ><span
 								class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-							
+
 							<li><a ng-hide="" ng-controller="loginController" ng-click="login()">Login</a></li>
 					</ul>
-			
+
 		</div>
 		<!--/.nav-collapse -->
 	</div>
