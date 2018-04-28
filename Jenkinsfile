@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh '''
                 echo "testing successful";
-                echo $email
+                echo $dockeruserid
                 echo $app
                 '''
             }
