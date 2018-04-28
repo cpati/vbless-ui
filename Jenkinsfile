@@ -27,7 +27,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                pwd
+                kubect apply -f ui-deployment.yaml
+                kubect apply -f ui-service.yaml
                 '''
             }
         }
