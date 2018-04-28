@@ -18,7 +18,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                mvn test;   
+                pwd
+                ls
                 echo "testing successful";
                 '''
             }
