@@ -56,25 +56,48 @@ myApp.controller('userProfileController',
 myApp.controller('homeController',
 				['$scope', '$http', 'httpPost', 'httpService','operation','$location','$rootScope',
 		function($scope, $http, httpPost, httpService, operation, $location, $rootScope) {
-	console.log("homeController initialized");
-//	$rootScope.userId=null; /**This needs to be commented out**/
-//supreetha hardcoded tenant id and user id and isAdmin for now
-console.log("test:"+$rootScope.test);
-  $rootScope.isAdmin = "true";
-  //$rootScope.tenantId=100;
-	$scope.userId=1;
+		console.log("homeController initialized");
+	//	$rootScope.userId=null; /**This needs to be commented out**/
+	//supreetha hardcoded tenant id and user id and isAdmin for now
+	console.log("test:"+$rootScope.test);
+	  $rootScope.isAdmin = "true";
+	  //$rootScope.tenantId=100;
+		$scope.userId=1;
 
 	//$scope.userId=$scope.userInfo.userName;
 	$scope.campaigns=[];
-	//$rootScope.userInfo.isAuthenticated=true; //chida
-	//chida $http.get("/campaigns/").then(function(data){
-	httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
-		console.log("chida home campaigns");
-		console.log(data);
-		$scope.campaigns=data.data;
-		$scope.campaignsFirst=$scope.campaigns[0];
-		$scope.campaignsRest=$scope.campaigns.slice(1,$scope.campaigns.length);
-	});
+
+	var hostname = $location.host();
+  var brandName;
+
+	console.log("hostname " + hostname);
+	if(hostname == "localhost")
+		brandName = "vBlessBr";
+	else {
+			var arr = hostName.split(".");
+			if(arr.length == 3 ) {
+					brandName = arr[0];
+				}
+		}
+
+
+	httpService.get("/vBless/getTenantByBrandName/"+brandName).then(function(data){
+		// $scope.tenants=data.data;
+		$rootScope.tenants=data.data;
+		$rootScope.tenantId=$scope.tenants.tenantId;
+		console.log($rootScope.tenants + ":::::::" + $rootScope.tenantId);
+
+
+		//$rootScope.userInfo.isAuthenticated=true; //chida
+		//chida $http.get("/campaigns/").then(function(data){
+		httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
+			console.log("chida home campaigns");
+			console.log(data);
+			$scope.campaigns=data.data;
+			$scope.campaignsFirst=$scope.campaigns[0];
+			$scope.campaignsRest=$scope.campaigns.slice(1,$scope.campaigns.length);
+		});
+});
 
 	$scope.heroCardCss=function(image){
 		if (image !=null && image!=undefined) {

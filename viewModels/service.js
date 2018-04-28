@@ -37,7 +37,7 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 myApp.service('httpService',['$http',function($http){
 	  var serverHost="http://localhost:5051"
 		this.get=function(url){
-			console.log("httpService get");
+			console.log("httpService get " + url);
 			return $http.get(serverHost+url);
 		};
 		this.post = function(postUrl, fd, config) {
