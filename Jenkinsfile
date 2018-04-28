@@ -29,8 +29,7 @@ pipeline {
             steps {
                 sh '''
                 export KUBERNETES_MASTER=http://127.0.0.1:8001
-                kubectl apply -f ui-deployment.yaml
-                kubectl apply -f ui-service.yaml
+                kubectl rollout status deployment/vbless-ui
                 '''
             }
         }
