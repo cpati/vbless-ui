@@ -16,8 +16,10 @@ spec:
         app: vbless-ui
         tier: frontend
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
       - name: vbless-ui
         image: chidanandapati/vbless-ui
+        imagePullPolicy: "Always"
         ports:
         - containerPort: 80
