@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                export KUBERNETES_MASTER=http://127.0.0.1:8000
+                export KUBERNETES_MASTER=http://127.0.0.1:8001
                 kubectl rollout status deployment/vbless-ui
                 '''
             }
