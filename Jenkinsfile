@@ -18,9 +18,9 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                pwd
-                ls
                 echo "testing successful";
+                echo $email
+                echo $app
                 '''
             }
         }
