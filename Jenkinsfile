@@ -20,7 +20,6 @@ pipeline {
             steps {
                 sh '''
                 echo "testing successful";
-                cat views/home.html
                 '''
             }
         }
