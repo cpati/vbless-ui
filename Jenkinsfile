@@ -9,16 +9,16 @@ pipeline {
         stage('Build') {
             steps {
             		sh '''
-                 /usr/local/bin/docker build -t vbless-ui .
-                 /usr/local/bin/docker tag vbless-ui chidanandapati/vbless-ui;
-                 /usr/local/bin/docker push chidanandapati/vbless-ui;
+                 docker build -t vbless-ui .
+                 docker tag vbless-ui chidanandapati/vbless-ui;
+                 docker push chidanandapati/vbless-ui;
                  '''
             }
         }
         stage('Test') {
             steps {
                 sh '''
-                mvn test;
+                mvn test;   
                 echo "testing successful";
                 '''
             }
