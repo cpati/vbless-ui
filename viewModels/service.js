@@ -170,3 +170,40 @@ myApp.service('campaign', function() {
 
 	return new Campaign();
 });
+
+myApp.service('tenant', function() {
+	function Tenant(){
+		this.setTenantId=function(tenantId){
+			this.tenantId=tenantId;
+		};
+
+		this.setEmail=function(email){
+			this.email=email;
+		};
+
+		this.setBusinessName=function(businessName){
+			this.businessName=businessName;
+		};
+
+		this.setBrandName=function(brandName){
+			this.brandName=brandName;
+		};
+
+		this.setPhone=function(phone){
+			this.phone=phone;
+		};
+
+		this.setPaypalAccount=function(paypalAccount){
+			this.paypalAccount=paypalAccount;
+		};
+
+		this.LogoUrl=function(logoUrl){
+			this.logoUrl=logoUrl;
+		};
+
+		this.LoginRedirectURL=function(loginRedirectURL){
+			this.loginRedirectURL=loginRedirectURL;
+		};
+	}
+	return new Tenant();
+});

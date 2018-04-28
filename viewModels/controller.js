@@ -110,8 +110,8 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 		//chida $http.get("/campaigns/"+$routeParams.ID).then(function(data){
 		httpService.get("/"+$rootScope+"/campaigns/"+$routeParams.ID).then(function(data){
 			$scope.campaign=data.data;
-			var createDate=new Date($scope.campaign.createAt);
-			console.log('date---'+$scope.campaign.createdAt);
+			var createDate=new Date($scope.campaign.createDate);
+			console.log('date---'+$scope.campaign.createDate);
 			$scope.campaign.createDate=createDate;
 			console.log(createDate);
 		});
@@ -325,3 +325,42 @@ myApp.controller('loginController',
 	}
 
 }]);
+
+
+//manageTenantsController
+myApp.controller('manageTenantsController', function($rootScope,$scope, $http,httpService, $routeParams,$location) {
+	console.log("manageTenantsController");
+	$scope.userId=$rootScope.userId;
+	$scope.myVar=false;
+
+	httpService.get("/vBless/getTenants").then(function(data){
+		$scope.tenants=data.data;
+		console.log($scope.tenants);
+	});
+
+});
+
+
+//createTenantController
+myApp.controller('createTenantController', function($rootScope,$scope, $http,httpService, $routeParams,$location) {
+	console.log("createTenantController");
+
+	$scope.doSave = function() {
+			var config= {
+								transformRequest: angular.identity,
+								headers: {'Content-Type': 'application/json'}
+						};
+			console.log("saveFormData");
+
+			httpService.post('/vBless/createTenant/',JSON.stringify($scope.tenant),config).then(function(response) {
+				if(response.data){
+					$location.path("/manageTenant");
+				}
+			});
+		}
+
+
+		$scope.doCancel = function() {
+				$location.path("/manageTenant");
+		}
+});

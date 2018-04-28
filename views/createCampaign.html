@@ -125,7 +125,8 @@
 					
 					<div class="col-md-3" >
 						<input type="date" class="form-control" ng-show="editMode"
-							ng-model="campaign.createDate" placeholder="Created Date" /> <label
+							ng-model="campaign.createDate" ng-data="campaign.createDate" ng-bind="campaign.createDate"
+							placeholder="Created Date" /> <label
 							title="Created Date" class="summary" ng-hide="editMode">{{createdDate}}</label>
 					</div>
 					
