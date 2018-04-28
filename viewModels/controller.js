@@ -61,7 +61,7 @@ myApp.controller('homeController',
 	//supreetha hardcoded tenant id and user id and isAdmin for now
 	console.log("test:"+$rootScope.test);
 	  $rootScope.isAdmin = "true";
-	  //$rootScope.tenantId=100;
+	    $rootScope.tenantId=100;
 		$scope.userId=1;
 
 	//$scope.userId=$scope.userInfo.userName;
