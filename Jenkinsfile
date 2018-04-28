@@ -28,7 +28,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                export KUBERNETES_MASTER=ec2-34-209-195-209.us-west-2.compute.amazonaws.com:8080
                 kubectl apply -f ui-deployment.yaml
                 kubectl apply -f ui-service.yaml
                 '''
