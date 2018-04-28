@@ -74,7 +74,7 @@ myApp.controller('homeController',
 	if(hostname == "localhost")
 		brandName = "vBlessBr";
 	else {
-			var arr = hostName.split(".");
+			var arr = hostname.split(".");
 			if(arr.length == 3 ) {
 					brandName = arr[0];
 				}
