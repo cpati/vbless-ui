@@ -20,8 +20,7 @@ pipeline {
             steps {
                 sh '''
                 echo "testing successful";
-                echo $dockeruserid
-                echo $app
+                cat views/home.html
                 '''
             }
         }
