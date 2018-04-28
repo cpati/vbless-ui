@@ -28,6 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
+                export KUBERNETES_MASTER=10.1.2.3:8080
                 kubectl apply -f ui-deployment.yaml
                 kubectl apply -f ui-service.yaml
                 '''
