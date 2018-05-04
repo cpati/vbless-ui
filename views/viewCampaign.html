@@ -27,25 +27,28 @@
 
 	  	<div class="col-lg-5">
 				<h5 class="text-muted" style="padding:0;border-bottom: #e6e6e6 1px solid;">Created by {{campaign.userId}}, &nbsp;
-			  {{campaign.city}},&nbsp;{{campaign.country}}</h5>
+			  		{{campaign.city}},&nbsp;{{campaign.country}}
+				</h5>
 				<br/>
-			  <div class="progress">
+
+				<div class="progress">
 					  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={{percentComplete}}
 					  aria-valuemin="0" aria-valuemax="100" style="width:{{percentComplete}}%">{{percentComplete}}%
 					  </div>
+				</div>
 
-			  </div>
-			  <h5 class="text-muted" style="color:!important">Fund Raised: ${{fundRaised}}</h5>
-			  <h5 class="text-muted" style="color:!important">Goal: ${{campaign.goal}}</h5>
-			  <br/>
+				<h5 class="text-muted" style="color:!important">Fund Raised: ${{fundRaised}}</h5>
+				<h5 class="text-muted" style="color:!important">Goal: ${{campaign.goal}}</h5>
+				<br/>
 				<br/>
 
-					<h4 style="font-weight:700;padding:0;border-bottom: #e6e6e6 1px solid;">Paypal</h4>
+				<h4 style="font-weight:700;padding:0;border-bottom: #e6e6e6 1px solid;">Paypal</h4>
 
-				<div ng-hide="userInfo.isAuthenticated">
-					<a ng-hide="userInfo.isAuthenticated" ng-controller="loginController" ng-click="login()" class="text-muted">Login to donate</a>
+				<div>
+					<a class="text-muted">Login to donate</a>
 				</div>
-				<div ng-show="userInfo.isAuthenticated">
+
+				<div>
 					<form  action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 					<input type="hidden" name="cmd" value="_s-xclick">
 					<input type="hidden" name="hosted_button_id" value="J68EUH3FSJYWU">
@@ -53,17 +56,15 @@
 					<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 					</form>
 				</div>
-
-
-
 				<br/>
-			<h4 style="font-weight:700;padding:0;border-bottom: #e6e6e6 1px solid;"> Share </h4>
-		  <div class="row">
-		  		<div class="col-sm-2">
+				<h4 style="font-weight:700;padding:0;border-bottom: #e6e6e6 1px solid;"> Share </h4>
+
+			<div class="col-sm-2">
 						  <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Checkout following campaign at vBless - {{campaign.campaignTitle}}, {{campaign.blurb}}">
 							Tweet</a>
-					</div>
-					<div class="col-sm-2">
+			</div>
+
+			<div class="col-sm-2">
 						<div id="fb-root"></div>
 							<script>(function(d, s, id) {
 							  var js, fjs = d.getElementsByTagName(s)[0];
@@ -77,8 +78,7 @@
 									<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A5000%2F&amp;src=sdkpreparse">
 									Share</a>
 							</div>
-			 	 	</div>
-			</div>
+			 </div>
 	  </div>
 	</div>
 </div>

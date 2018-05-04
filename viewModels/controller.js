@@ -192,7 +192,7 @@ myApp.controller('viewCampaignController', function($rootScope,$scope, $http,htt
 	  $scope.userId=1;
 	//$scope.userid=$scope.userInfo.userName;
 
-  $rootScope.userInfo.userName=='creator@vBless.onmicrosoft.com';
+  // $rootScope.userInfo.userName='creator@vBless.onmicrosoft.com';
 
 	$scope.campaign = null;
 	$scope.percentComplete=10;

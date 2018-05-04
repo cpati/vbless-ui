@@ -9,8 +9,12 @@ color: #9d9d9d;
 }
 
 .vbless-logo-color{
-	font-size:18px;
+	font-size:20px;
 	color:#eeba37 !important;
+}
+
+.carousel-control:hover span.glyphicon {
+    color: red;
 }
 
 #firstLine{
@@ -72,13 +76,13 @@ body {
   outline: 0;
   display: inline-block;
   padding: 10px 25px;
-  color: black;
-  background-color: #ddd;
+  ##color: black;
+  background-color: #ff1a1a;
   text-align: center;
   cursor: pointer;
 }
 
 .hero-text button:hover {
-  background-color: #555;
+  background-color: #cc0000;
   color: white;
 }

@@ -23,6 +23,7 @@ angular
 .module("WidgetConfig", [])
 .constant("CONFIG", {
     options : {
-	      baseUrl: "dev-346506-admin.oktapreview.com"
+	      baseUrl: "csproj-dev-346506.oktapreview.com",
+        clientId: "0oaeworpmc6VEjkeI0h7"
     }
 });
