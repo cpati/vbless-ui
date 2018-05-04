@@ -13,22 +13,22 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="#list">Campaigns</a></li>
-					<li><a href="#createCampaign">Create Campaign</a></li>
+					<li><a href="#list" style="font-size:16px;">Campaigns</a></li>
+					<li><a href="#createCampaign" style="font-size:16px;">Create Campaign</a></li>
 					<li><a href="#manageCampaigns" ng-show="isAdmin"
-					title="profile">Manage Campaigns</a></li>
-					<li><a href="#manageTenant" ng-show="isAdmin"
+					title="profile" style="font-size:16px;">Manage Campaigns</a></li>
+					<li><a href="#manageTenant" ng-show="isAdmin" style="font-size:16px;"
 					title="Tenant">Manage Tenant</a></li>
 					<li><a target="_blank" href="https://us-west-2b.online.tableau.com/#/site/bbvbless/views"
-					ng-show="isAdmin">
+					ng-show="isAdmin" style="font-size:16px;">
 					BI @ Tableau</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#userProfile" ng-show="" title="profile">Welcome {{userInfo.userName}}</a></li>
-							<li class="pull-right"><a ng-controller="logoutController" ng-click="logout()" ng-show="" ><span
+					<li><a ng-show="" title="profile" style="font-size:16px;">Welcome {{auth.user}}</a></li>
+							<li class="pull-right"><a ng-controller="logoutController" ng-click="logout()" ng-show="" style="font-weight:600;font-size:16px;"><span
 								class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
-							<li><a ng-hide="" ng-controller="loginController" ng-click="login()">Login</a></li>
+							<li><a href="#login" style="font-size:16px;">Login</a></li>
 					</ul>
 
 		</div>

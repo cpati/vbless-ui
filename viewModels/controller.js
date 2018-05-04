@@ -68,11 +68,11 @@ myApp.controller('homeController',
 	$scope.campaigns=[];
 
 	var hostname = $location.host();
-  var brandName="vBlessBr";
+  var brandName="vBless";
 
 	console.log("hostname " + hostname);
 	if(hostname == "localhost")
-		brandName = "vBlessBr";
+		brandName = "vBless";
 	else {
 			var arr = hostname.split(".");
 			if(arr.length == 3 ) {
@@ -203,17 +203,20 @@ myApp.controller('viewCampaignController', function($rootScope,$scope, $http,htt
 			$scope.campaign=data.data;
 			console.log("campaign data1" + $scope.campaign);
 			//chida $http.get("/vBless/getFundRaised/" + $routeParams.ID)
+			$scope.fundRaised = 500;
+			$scope.percentComplete = 10;
 			httpService.get("/vBless/getFundRaised/" + $routeParams.ID)
 			.then(
 					function(response) {
-						$scope.fundRaised = response.data;
-						console.log("fund raised1 " + $scope.fundRaised);
-						$scope.percentComplete=($scope.fundRaised/$scope.campaign.goal) *100;
+						if(response.data != "") {
+							$scope.fundRaised = response.data;
+							console.log("fund raised1 " + $scope.fundRaised);
+							$scope.percentComplete=($scope.fundRaised/$scope.campaign.goal) *100;
+							console.log("percent complete " + $scope.percentComplete);
+						}
 					});
 
 	});
-
-	console.log("percent complete " + $scope.percentComplete);
 
 	$scope.editPage=function(){
 		$location.path("/createCampaign/"+$routeParams.ID);
@@ -336,19 +339,6 @@ myApp.controller('logoutController',
 
 	}
 }]);
-
-
-/* loginController Implementation Start */
-myApp.controller('loginController',
-	['$scope', '$http', 'httpPost', '$location',
-	function($scope, $http, httpPost, $location) {
-	console.log("LoginController");
-	$scope.login = function(){
-
-	}
-
-}]);
-
 
 //manageTenantsController
 myApp.controller('manageTenantsController', function($rootScope,$scope, $http,httpService, $routeParams,$location) {

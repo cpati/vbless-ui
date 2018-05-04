@@ -36,7 +36,10 @@ myApp.config(['$routeProvider', '$qProvider', '$locationProvider', '$httpProvide
 		controller : "createTenantController",
 	}).when("/manageTenant", {
 		templateUrl : "views/manageTenants.html",
-		controller : "manageTenantsController"
+		controller : "manageTenantsController",
+	}).when("/login", {
+		templateUrl : "views/login.html",
+		controller : "LoginController"
 	});
 
 	$qProvider.errorOnUnhandledRejections(false);

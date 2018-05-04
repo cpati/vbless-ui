@@ -35,7 +35,8 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 myApp.service('httpService',['$http',function($http){
-	  var serverHost="http://ae2862d7b4b1b11e89d8702d9064280b-1217286264.us-west-2.elb.amazonaws.com:5051"
+	  //var serverHost="http://ae2862d7b4b1b11e89d8702d9064280b-1217286264.us-west-2.elb.amazonaws.com:5051"
+		var serverHost="http://localhost:5051"
 		this.get=function(url){
 			console.log("httpService get " + url);
 			return $http.get(serverHost+url);
