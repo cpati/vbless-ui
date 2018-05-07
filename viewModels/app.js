@@ -60,6 +60,9 @@ myApp.directive("myWidget",
 						}
 					);			
 				});
+				setTimeout(function(){
+					angular.element(button).click();
+				  },0);
 			}
 		}
 });
