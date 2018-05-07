@@ -9,12 +9,18 @@ color: #9d9d9d;
 }
 
 .vbless-logo-color{
+	font-size:20px;
 	color:#eeba37 !important;
 }
 
+.carousel-control:hover span.glyphicon {
+    color: red;
+}
+
 #firstLine{
-	font-size:25px;	
-	font-style:italic;
+	font-size:18px;
+	color:#4c4c4c;
+	text-transform: uppercase;font-weight:700;
 }
 
 #secondLine {
@@ -46,7 +52,7 @@ body {
 
 /* Hero card css */
 /* .hero-image {
-  background-image: url("images/20131002_082818.jpg"); 
+  background-image: url("images/20131002_082818.jpg");
   height: 50%;
   background-position: center;
   background-repeat: no-repeat;
@@ -55,7 +61,9 @@ body {
 } */
 
 .hero-text {
-  text-align: left;
+	background: rgba(0,0,0,.8);
+	margin-left:5px;
+  text-align: center;
   position: absolute;
   top: 80%;
   left: 50%;
@@ -68,13 +76,13 @@ body {
   outline: 0;
   display: inline-block;
   padding: 10px 25px;
-  color: black;
-  background-color: #ddd;
+  ##color: black;
+  background-color: #ff1a1a;
   text-align: center;
   cursor: pointer;
 }
 
 .hero-text button:hover {
-  background-color: #555;
+  background-color: #cc0000;
   color: white;
 }

@@ -3,10 +3,10 @@
 	<div class="row" style="padding-bottom:10px;">
 	<!-- <div class="col-lg-1"></div> -->
 	<div id="tagline" class="col-lg-10">
-		<div id="firstLine">Watch out for them</div>
+		<div id="firstLine">Popular campaigns</div>
 	</div>
 	<div class="col-lg-1"></div>
-	</div>		
+	</div>
 	<div id="myCarousel" class="carousel slide carousel-home" data-ride="carousel"
 		data-interval="2000" style="margin-top: 10px;">
 
@@ -16,22 +16,24 @@
 				<a href="#viewCampaign/{{campaignsFirst.campaignId}}">
 				<div style="{{heroCardCss(campaignsFirst.imageBlob)}}">
 					<div class="hero-text">
-						<h1 style="font-size: 50px">{{campaignsFirst.campaignTitle}}</h1>
+						<h1 style="text-transform: uppercase;font-weight:400;font-size: 20px">&nbsp;&nbsp;{{campaignsFirst.campaignTitle}}&nbsp;&nbsp;</h1>
 						<!-- <h1 style="font-size: 30px">{{campaignsFirst.userId}}</h1>-->
-						<h1 style="font-size: 30px">{{campaignsFirst.blurb}}</h1>
-						<br>
+						<p style="font-size: 15px">&nbsp;&nbsp;{{campaignsFirst.blurb}}&nbsp;&nbsp;</p>
+						<button type="submit">Learn More</button>
+						<p/>
 					</div>
 				</div>
-				</a>	
+				</a>
 			</div>
 			<div class="item" ng-repeat="campaign in campaignsRest">
 			<a href="#viewCampaign/{{campaign.campaignId}}">
 				<div style="{{heroCardCss(campaign.imageBlob)}}">
 					<div class="hero-text">
-						<h1 style="font-size: 50px">{{campaign.campaignTitle}}</h1>
+						<h1 style="text-transform: uppercase;font-weight:400;font-size: 20px">&nbsp;&nbsp;{{campaign.campaignTitle}}&nbsp;&nbsp;</h1>
 						<!-- <h1 style="font-size: 30px">{{campaign.userId}}</h1>-->
-						<h1 style="font-size: 30px">{{campaign.blurb}}</h1>
-						<br>
+						<p style="font-size: 15px">&nbsp;&nbsp;{{campaign.blurb}}&nbsp;&nbsp;</p>
+						<button type="submit">Learn More</button>
+						<p/>
 					</div>
 				</div>
 				</a>
