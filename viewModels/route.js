@@ -40,8 +40,12 @@ myApp.config(['$routeProvider', '$qProvider', '$locationProvider', '$httpProvide
 	}).when("/login", {
 		templateUrl : "views/login.html",
 		controller : "LoginController"
-	});
+	}).when("/oktacallback", {
+		templateUrl : "views/oktacallback.html",
+		controller : "oktaCallBackController"
+	})
+	.otherwise({redirectTo: "/"});;
 
-	$qProvider.errorOnUnhandledRejections(false);
+	//$qProvider.errorOnUnhandledRejections(false);
 
 }]);

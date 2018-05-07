@@ -5,7 +5,7 @@ myApp.controller('userProfileController',
 		function($scope, $http, httpPost, httpService, $location) {
 	console.log("userProfileController");
 
-	$scope.userid=$scope.userInfo.userName;
+	$scope.userid=1; //$scope.userInfo.userName;
 
 
 	//chida $http.get("/vBless/getCampaignUser/" + $scope.userid).then(
@@ -54,8 +54,8 @@ myApp.controller('userProfileController',
 
 /* homeController Implementation Start */
 myApp.controller('homeController',
-				['$scope', '$http', 'httpPost', 'httpService','operation','$location','$rootScope',
-		function($scope, $http, httpPost, httpService, operation, $location, $rootScope) {
+				['$scope', '$http', 'httpPost', 'httpService','operation','$location','$rootScope','$window',  'widgetManager',
+		function($scope, $http, httpPost, httpService, operation, $location, $rootScope,$window,  widgetManager) {
 		console.log("homeController initialized");
 	//	$rootScope.userId=null; /**This needs to be commented out**/
 	//supreetha hardcoded tenant id and user id and isAdmin for now
@@ -97,6 +97,53 @@ myApp.controller('homeController',
 			$scope.campaignsFirst=$scope.campaigns[0];
 			$scope.campaignsRest=$scope.campaigns.slice(1,$scope.campaigns.length);
 		});
+
+	//*****Okta Integration****//
+	// Get widget for helper methods
+	var widget = widgetManager.getWidget();
+
+	// Get auth object from LocalStorage
+	var auth = angular.isDefined($window.localStorage["auth"]) ? JSON.parse($window.localStorage["auth"]) : undefined;
+
+	// Redirect if user is not authenticated
+	if (angular.isUndefined(auth)) {
+		$location.path("/login");
+	}
+
+	$scope.session = true;
+	$scope.auth = auth;
+
+	// Refreshes the current session if active	
+	$scope.refreshSession = function() {
+		widget.session.refresh(function(success) {
+			// Show session object
+			$scope.sessionObject = success;
+		});
+	};
+
+	// Closes the current live session
+	$scope.closeSession = function() {
+		widget.session.close(function(){
+			$scope.session = undefined;
+		});
+	};
+
+	//	Clears the localStorage saved in the web browser and scope variables
+	function clearStorage() {
+		$window.localStorage.clear();
+		$scope = $scope.$new(true);
+	}
+
+	//	Signout of organization
+	$scope.signout = function() {
+		widget.session.exists(function(exists) {
+			if(exists) {
+				widget.signOut();
+				clearStorage();
+				$location.path("/login");
+			}
+		});
+	};		
 });
 
 	$scope.heroCardCss=function(image){
@@ -376,4 +423,17 @@ myApp.controller('createTenantController', function($rootScope,$scope, $http,htt
 		$scope.doCancel = function() {
 				$location.path("/manageTenant");
 		}
+});
+
+myApp.controller('LoginController', function($window, $location, $scope, widgetManager) {
+	console.log("LoginController");
+	var widget = widgetManager.getWidget();
+
+	widget.session.exists(function(exists) {
+		if(exists) {
+			widget.signOut();
+			$window.localStorage.clear();
+			$scope = $scope.$new(true);
+		}
+	});
 });
