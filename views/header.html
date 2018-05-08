@@ -17,18 +17,18 @@
 					<li><a href="#createCampaign" style="font-size:16px;">Create Campaign</a></li>
 					<li><a href="#manageCampaigns" ng-show="isAdmin"
 					title="profile" style="font-size:16px;">Manage Campaigns</a></li>
-					<li><a href="#manageTenant" ng-show="isAdmin" style="font-size:16px;"
+					<li><a href="#manageTenant" ng-show="isSuperAdmin" style="font-size:16px;"
 					title="Tenant">Manage Tenant</a></li>
 					<li><a target="_blank" href="https://us-west-2b.online.tableau.com/#/site/bbvbless/views"
 					ng-show="isAdmin" style="font-size:16px;">
 					BI @ Tableau</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a ng-show="" title="profile" style="font-size:16px;">Welcome {{auth.user}}</a></li>
-							<li class="pull-right"><a ng-controller="logoutController" ng-click="logout()" ng-show="" style="font-weight:600;font-size:16px;"><span
+					<li><a ng-show="isLoggedin" title="profile" style="font-size:16px;">Welcome {{userName}}</a></li>
+					<li class="pull-right" ng-show="isLoggedin"><a ng-controller="logoutController" ng-click="logout()" ng-show="isLoggedin" style="font-weight:600;font-size:16px;"><span
 								class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
-							<li><a href="#login" style="font-size:16px;">Login</a></li>
+					<li ng-hide="isLoggedin"><a href="#login" style="font-size:16px;">Login</a></li>
 					</ul>
 
 		</div>

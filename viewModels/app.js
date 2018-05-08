@@ -26,7 +26,7 @@ myApp.run(function(widgetManager, CONFIG,widget){
 
 // Directive to launch the widget
 myApp.directive("myWidget",
-	function($window, widgetManager) {
+	function($window, widgetManager,$rootScope) {
 		return {
 			restrict: "E",
 			replace: true,
@@ -41,7 +41,6 @@ myApp.directive("myWidget",
 						{ el: element.children()[1] },
 						function(tokens) {
 							if (tokens.status === "SUCCESS" ) {
-								$window.successfullogin=true;
 								/*angular.forEach(tokens, function(token) {
 									// Token response sent in two element array
 									// based on request order ['idToken', 'token']
@@ -55,10 +54,10 @@ myApp.directive("myWidget",
 							    });*/
 								// Hide widget
 								scope.widget = false;
-								$window.location.href = '/';
+								$window.location.href = '/#/access/'+tokens.claims.email;
 							}
 						}
-					);			
+					);	
 				});
 				setTimeout(function(){
 					angular.element(button).click();

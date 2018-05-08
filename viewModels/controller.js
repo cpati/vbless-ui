@@ -59,8 +59,6 @@ myApp.controller('homeController',
 		console.log("homeController initialized");
 	//	$rootScope.userId=null; /**This needs to be commented out**/
 	//supreetha hardcoded tenant id and user id and isAdmin for now
-	console.log("test:"+$rootScope.test);
-	  $rootScope.isAdmin = "true";
 	    //$rootScope.tenantId=100;
 		$scope.userId=1;
 
@@ -96,54 +94,7 @@ myApp.controller('homeController',
 			$scope.campaigns=data.data;
 			$scope.campaignsFirst=$scope.campaigns[0];
 			$scope.campaignsRest=$scope.campaigns.slice(1,$scope.campaigns.length);
-		});
-
-	//*****Okta Integration****//
-	// Get widget for helper methods
-	var widget = widgetManager.getWidget();
-
-	// Get auth object from LocalStorage
-	var auth = angular.isDefined($window.localStorage["auth"]) ? JSON.parse($window.localStorage["auth"]) : undefined;
-
-	// Redirect if user is not authenticated
-	if (angular.isUndefined(auth)) {
-		$location.path("/login");
-	}
-
-	$scope.session = true;
-	$scope.auth = auth;
-
-	// Refreshes the current session if active	
-	$scope.refreshSession = function() {
-		widget.session.refresh(function(success) {
-			// Show session object
-			$scope.sessionObject = success;
-		});
-	};
-
-	// Closes the current live session
-	$scope.closeSession = function() {
-		widget.session.close(function(){
-			$scope.session = undefined;
-		});
-	};
-
-	//	Clears the localStorage saved in the web browser and scope variables
-	function clearStorage() {
-		$window.localStorage.clear();
-		$scope = $scope.$new(true);
-	}
-
-	//	Signout of organization
-	$scope.signout = function() {
-		widget.session.exists(function(exists) {
-			if(exists) {
-				widget.signOut();
-				clearStorage();
-				$location.path("/login");
-			}
-		});
-	};		
+		});	
 });
 
 	$scope.heroCardCss=function(image){
@@ -379,11 +330,14 @@ myApp.controller('shareController', function($scope, $http, $location) {
 
 /* logoutController Implementation Start */
 myApp.controller('logoutController',
-	['$scope', '$http', 'httpPost', '$location',
-	function($scope, $http, httpPost, $location) {
+	['$scope', '$http', 'httpPost', '$location','$rootScope',
+	function($scope, $http, httpPost, $location,$rootScope) {
 	console.log("logoutController");
 	$scope.logout = function(){
-
+		$rootScope.userName=""
+		$rootScope.isAdmin=false;
+		$rootScope.isSuperAdmin=false;
+		$rootScope.isLoggedin=false;
 	}
 }]);
 
@@ -437,3 +391,18 @@ myApp.controller('LoginController', function($window, $location, $scope, widgetM
 		}
 	});
 });
+
+myApp.controller('accessController', function($window,$scope, $rootScope,$routeParams) {
+	console.log("accessController:"+$routeParams.ID);
+	$rootScope.userName=$routeParams.ID;
+	if ($routeParams.ID.includes("admin")){
+		$rootScope.isAdmin = true;
+	}
+	if ($routeParams.ID.includes("super")){
+		$rootScope.isSuperAdmin = true;
+		$rootScope.isAdmin = true;
+	}
+	$rootScope.isLoggedin=true;
+	$window.location.href = '/#/';
+});
+
