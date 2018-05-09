@@ -25,7 +25,7 @@ angular
     options : {
 	      baseUrl: "https://dev-804878.oktapreview.com",
         clientId: "0oaex1hsojBFheTVU0h7",
-        redirectUri: "http://chida.themodestwhite.com/"/*,
+        redirectUri: "http://*.themodestwhite.com/"/*,
   	    authParams: {
     	      responseType: ["id_token", "token"],
     	      responseMode: "okta_post_message",
