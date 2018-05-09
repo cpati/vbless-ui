@@ -18,10 +18,18 @@ var myApp = angular.module('myApp', [ 'ngRoute', "OktaAuthClient", "WidgetConfig
 myApp.value("widget", undefined);
 //myApp.controller("LoginController", LoginController);
 
-myApp.run(function(widgetManager, CONFIG,widget){
+myApp.run(function(widgetManager, CONFIG,widget,$location){
 
 	// Initialize Widget from configuration file
-	widget = widgetManager.initWidget( CONFIG.options );
+	var options = {
+		baseUrl: "https://dev-804878.oktapreview.com",
+	  clientId: "0oaex1hsojBFheTVU0h7",
+	  redirectUri: "http://vblessbr.themodestwhite.com/"};
+	options.redirectUri=$location.protocol() + "://" + $location.host();
+	if ($location.host() == "localhost")
+		options.redirectUri=options.redirectUri+":8081";
+	console.log($location.protocol() + "://" + $location.host());
+	widget = widgetManager.initWidget( options );
 });
 
 // Directive to launch the widget
