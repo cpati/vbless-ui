@@ -17,7 +17,7 @@
 angular
 .module("OktaAuthClient", [])
 
-.factory("widgetManager", function($q) {
+.factory("widgetManager", function($q,$location) {
 	var widget;
 
     return {
@@ -25,7 +25,8 @@ angular
             return widget;
         },
         initWidget: function(options){
-        	// Create widget
+            // Create widget
+            options.redirectUri=$location.protocol();
         	var createWidget = new OktaSignIn(options);
 			widget = createWidget; 
         }
