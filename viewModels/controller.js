@@ -94,7 +94,7 @@ myApp.controller('homeController',
 			$scope.campaigns=data.data;
 			$scope.campaignsFirst=$scope.campaigns[0];
 			$scope.campaignsRest=$scope.campaigns.slice(1,$scope.campaigns.length);
-		});	
+		});
 });
 
 	$scope.heroCardCss=function(image){
@@ -125,6 +125,18 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 	$rootScope.isAdmin = "true"; //true
 	//$rootScope.tenantId =100;
 	$scope.campaign={};
+
+	//DEMO : Setting default values
+	$scope.campaign.goal=1000;
+	$scope.campaign.campaignDescription="Demo description. This is just a demo campaign.";
+	$scope.campaign.blurb="Demo blurb";
+	$scope.campaign.category="Community";
+	$scope.campaign.city="Santa Clara";
+	$scope.campaign.duration=10;
+	$scope.campaign.country="USA";
+	$scope.campaign.createDate="11-05-2018";
+	//DEMO : Setting default values
+
 	console.log($routeParams.ID);
 	if ($routeParams.ID != null && $routeParams.ID != undefined) {
 		console.log("getting campaign")
@@ -405,4 +417,3 @@ myApp.controller('accessController', function($window,$scope, $rootScope,$routeP
 	$rootScope.isLoggedin=true;
 	$window.location.href = '/#/';
 });
-
