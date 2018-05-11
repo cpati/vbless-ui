@@ -11,8 +11,8 @@ pipeline {
             		sh '''
                     docker login --username=$dockeruserid --password=$dockeruserpw
                  docker build -t vbless-ui .
-                 docker tag vbless-ui chidanandapati/vbless-ui:v10.30;
-                 docker push chidanandapati/vbless-ui:v10.30;
+                 docker tag vbless-ui chidanandapati/vbless-ui:v10.31;
+                 docker push chidanandapati/vbless-ui:v10.31;
                  '''
             }
         }
