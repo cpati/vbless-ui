@@ -1,4 +1,4 @@
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vbless-ui
@@ -7,11 +7,9 @@ spec:
     matchLabels:
       app: vbless-ui
       tier: frontend
-  replicas: 2 # tells deployment to run 2 pods matching the template
-  template: # create pods using pod definition in this template
+  replicas: 2
+  template:
     metadata:
-      # unlike pod-nginx.yaml, the name is not included in the meta data as a unique name is
-      # generated from the deployment name
       labels:
         app: vbless-ui
         tier: frontend
