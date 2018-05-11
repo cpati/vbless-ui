@@ -1,8 +1,8 @@
 /* userProfileController Implementation Start */
 
 myApp.controller('userProfileController',
-		['$scope', '$http', 'httpPost', 'httpService','$location',
-		function($scope, $http, httpPost, httpService, $location) {
+		['$scope', '$http', 'httpPost', 'httpService','$location','$window',
+		function($scope, $http, httpPost, httpService, $location,$window) {
 	console.log("userProfileController");
 
 	$scope.userid=1; //$scope.userInfo.userName;
@@ -41,13 +41,15 @@ myApp.controller('userProfileController',
 	       //chida $http.post(url, data, config).then(function (response) {
 				 httpService.post(url, data, config).then(function (response) {
 	    	   if(response.data != "FAIL")  {
-	    		   $location.url("list");
+				   //$location.url("list");
+				   $window.location.href ="/#/list/";
 	    	   }
 			});
 	    };
 
 	$scope.doCancel = function(){
-    		$location.url("list");
+			//$location.url("list");
+			$window.location.href ="/#/list/";
     }
 
 }]);
@@ -110,7 +112,7 @@ myApp.controller('homeController',
 //hard code end
 
 /* campaignController Implementation Start */
-myApp.controller('campaignController',function($scope, httpPost, httpService, operation, $location, $http,httpService, campaign,$routeParams,$rootScope) {
+myApp.controller('campaignController',function($scope, httpPost, httpService, operation, $location, $http,httpService, campaign,$routeParams,$rootScope,$window) {
 	console.log("campaignController initialized");
 
 
@@ -172,7 +174,8 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 			httpService.post('/' + $rootScope.tenantId + '/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
 				if(response.data){
 					fileUpload(response.data.campaignId);
-					$location.path("/list");
+					//$location.path("/list");
+					$window.location.href ="/#/list/";
 				}
 			});
 
@@ -268,7 +271,7 @@ myApp.controller('campaignListController', function($scope, httpPost,
 });
 
 /* manageCampaignController Implementation Start */
-myApp.controller('manageCampaignController', function($rootScope,$scope, $http,httpService, $routeParams,$location) {
+myApp.controller('manageCampaignController', function($rootScope,$scope, $http,httpService, $routeParams,$location,$window) {
 	console.log("manageCampaignController");
 	$scope.userId=$rootScope.userId;
 	$scope.myVar=false;
@@ -305,7 +308,8 @@ myApp.controller('manageCampaignController', function($rootScope,$scope, $http,h
 	       //chida $http.post(url, data, config).then(function (response) {
 				 httpService.post(url, data, config).then(function (response) {
 	    	   if(response.data != "FAIL")  {
-	    		   $location.url("list");
+				   //$location.url("list");
+				   $window.location.href ="/#/list/";
 	    	   }
 			});
 
