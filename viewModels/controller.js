@@ -43,6 +43,7 @@ myApp.controller('userProfileController',
 	    	   if(response.data != "FAIL")  {
 				   //$location.url("list");
 				   $window.location.href ="/#/list/";
+				   $window.location.reload();
 	    	   }
 			});
 	    };
@@ -50,6 +51,7 @@ myApp.controller('userProfileController',
 	$scope.doCancel = function(){
 			//$location.url("list");
 			$window.location.href ="/#/list/";
+			$window.location.reload();
     }
 
 }]);
@@ -310,6 +312,7 @@ myApp.controller('manageCampaignController', function($rootScope,$scope, $http,h
 	    	   if(response.data != "FAIL")  {
 				   //$location.url("list");
 				   $window.location.href ="/#/list/";
+				   $window.location.reload();
 	    	   }
 			});
 
