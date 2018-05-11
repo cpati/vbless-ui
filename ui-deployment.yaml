@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vbless-ui
-        image: chidanandapati/vbless-ui:v10.23
+        image: chidanandapati/vbless-ui:v10.24
         imagePullPolicy: Always
         ports:
         - containerPort: 80
