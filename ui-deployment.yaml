@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vbless-ui
+spec:
+  selector:
+    matchLabels:
+      app: vbless-ui
+      tier: frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: vbless-ui
+        tier: frontend
+    spec:
+      containers:
+      - name: vbless-ui
+        image: chidanandapati/vbless-ui:v10.34
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

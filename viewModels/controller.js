@@ -1,9 +1,11 @@
 /* userProfileController Implementation Start */
+
 myApp.controller('userProfileController',
-		['$scope', '$http', 'httpPost', 'httpService','$location',
-		function($scope, $http, httpPost, httpService, $location) {
+		['$scope', '$http', 'httpPost', 'httpService','$location','$window',
+		function($scope, $http, httpPost, httpService, $location,$window) {
 	console.log("userProfileController");
-	$scope.userid=$scope.userInfo.userName;
+
+	$scope.userid=1; //$scope.userInfo.userName;
 
 
 	//chida $http.get("/vBless/getCampaignUser/" + $scope.userid).then(
@@ -39,34 +41,65 @@ myApp.controller('userProfileController',
 	       //chida $http.post(url, data, config).then(function (response) {
 				 httpService.post(url, data, config).then(function (response) {
 	    	   if(response.data != "FAIL")  {
-	    		   $location.url("list");
+				   //$location.url("list");
+				   $window.location.href ="/#/list/";
+				   $window.location.reload();
 	    	   }
 			});
 	    };
 
 	$scope.doCancel = function(){
-    		$location.url("list");
+			//$location.url("list");
+			$window.location.href ="/#/list/";
+			$window.location.reload();
     }
 
 }]);
 
 /* homeController Implementation Start */
 myApp.controller('homeController',
-				['$scope', '$http', 'httpPost', 'httpService','operation','$location','$rootScope',
-		function($scope, $http, httpPost, httpService, operation, $location, $rootScope) {
-	console.log("homeController initialized");
-//	$rootScope.userId=null; /**This needs to be commented out**/
-	$scope.userId=$scope.userInfo.userName;
+				['$scope', '$http', 'httpPost', 'httpService','operation','$location','$rootScope','$window',  'widgetManager',
+		function($scope, $http, httpPost, httpService, operation, $location, $rootScope,$window,  widgetManager) {
+		console.log("homeController initialized");
+	//	$rootScope.userId=null; /**This needs to be commented out**/
+	//supreetha hardcoded tenant id and user id and isAdmin for now
+	    //$rootScope.tenantId=100;
+		$scope.userId=1;
+
+	//$scope.userId=$scope.userInfo.userName;
 	$scope.campaigns=[];
-	$rootScope.userInfo.isAuthenticated=true; //chida
-	//chida $http.get("/campaigns/").then(function(data){
-	httpService.get("/campaigns/").then(function(data){
-		console.log("chida home campaigns");
-		console.log(data);
-		$scope.campaigns=data.data;
-		$scope.campaignsFirst=$scope.campaigns[0];
-		$scope.campaignsRest=$scope.campaigns.slice(1,$scope.campaigns.length);
-	});
+
+	var hostname = $location.host();
+  var brandName="vBless";
+
+	console.log("hostname " + hostname);
+	if(hostname == "localhost")
+		brandName = "vBless";
+	else {
+			var arr = hostname.split(".");
+			if(arr.length == 3 ) {
+					brandName = arr[0];
+				}
+		}
+
+
+	httpService.get("/vBless/getTenantByBrandName/"+brandName).then(function(data){
+		// $scope.tenants=data.data;
+		$rootScope.tenants=data.data;
+		$rootScope.tenantId=$scope.tenants.tenantId;
+		console.log($rootScope.tenants + ":::::::" + $rootScope.tenantId);
+
+
+		//$rootScope.userInfo.isAuthenticated=true; //chida
+		//chida $http.get("/campaigns/").then(function(data){
+		httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
+			console.log("chida home campaigns");
+			console.log(data);
+			$scope.campaigns=data.data;
+			$scope.campaignsFirst=$scope.campaigns[0];
+			$scope.campaignsRest=$scope.campaigns.slice(1,$scope.campaigns.length);
+		});
+});
 
 	$scope.heroCardCss=function(image){
 		if (image !=null && image!=undefined) {
@@ -78,8 +111,10 @@ myApp.controller('homeController',
 
 }]);
 
+//hard code end
+
 /* campaignController Implementation Start */
-myApp.controller('campaignController',function($scope, httpPost, httpService, operation, $location, $http,httpService, campaign,$routeParams,$rootScope) {
+myApp.controller('campaignController',function($scope, httpPost, httpService, operation, $location, $http,httpService, campaign,$routeParams,$rootScope,$window) {
 	console.log("campaignController initialized");
 
 
@@ -92,14 +127,28 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 		$rootScope.isAdmin = "false";
 	}*/
 	$rootScope.isAdmin = "true"; //true
+	//$rootScope.tenantId =100;
 	$scope.campaign={};
+
+	//DEMO : Setting default values
+	$scope.campaign.goal=1000;
+	$scope.campaign.campaignDescription="Demo description. This is just a demo campaign.";
+	$scope.campaign.blurb="Demo blurb";
+	$scope.campaign.category="Community";
+	$scope.campaign.city="Santa Clara";
+	$scope.campaign.duration=10;
+	$scope.campaign.country="USA";
+	$scope.campaign.createDate="11-05-2018";
+	//DEMO : Setting default values
+
 	console.log($routeParams.ID);
 	if ($routeParams.ID != null && $routeParams.ID != undefined) {
 		console.log("getting campaign")
 		//chida $http.get("/campaigns/"+$routeParams.ID).then(function(data){
-		httpService.get("/campaigns/"+$routeParams.ID).then(function(data){
+		httpService.get("/"+$rootScope+"/campaigns/"+$routeParams.ID).then(function(data){
 			$scope.campaign=data.data;
 			var createDate=new Date($scope.campaign.createDate);
+			console.log('date---'+$scope.campaign.createDate);
 			$scope.campaign.createDate=createDate;
 			console.log(createDate);
 		});
@@ -118,12 +167,17 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 			console.log("saveFormData");
 
 //			$scope.campaign.userId=1; /********This needs to be changed*********/
-			$scope.campaign.userId=$scope.userInfo.userName;
+//supreetha hardcoding for now. later to be taken from actual user details
+
+    	$scope.campaign.userId=1;
+		//$scope.userId=$scope.userInfo.userName;
+
 			//chida $http.post('/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
-			httpService.post('/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
+			httpService.post('/' + $rootScope.tenantId + '/campaigns/',JSON.stringify($scope.campaign),config).then(function(response) {
 				if(response.data){
 					fileUpload(response.data.campaignId);
-					$location.path("/list");
+					//$location.path("/list");
+					$window.location.href ="/#/list/";
 				}
 			});
 
@@ -131,7 +185,7 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 				var fd = new FormData();
 				fd.append('fileUpload', $scope.fileUpload);
 				 //chida $http.post('/campaigns/uploadfile/'+campaignId, fd, {
-				 httpService.post('/campaigns/uploadfile/'+campaignId, fd, {
+				 httpService.post('/'+$rootScope.tenantId+'/campaigns/uploadfile/'+campaignId, fd, {
 			            transformRequest: angular.identity,
 			            headers: {'Content-Type': undefined}
 			        })
@@ -149,27 +203,35 @@ myApp.controller('campaignController',function($scope, httpPost, httpService, op
 /* viewCampaignController Implementation Start */
 myApp.controller('viewCampaignController', function($rootScope,$scope, $http,httpService, $routeParams,$location,$q) {
 	console.log("viewCampaignController");
-	$scope.userid=$scope.userInfo.userName;
+	//supreetha hardcoding for now. later to be taken from actual user details
+	  $scope.userId=1;
+	//$scope.userid=$scope.userInfo.userName;
+
+  // $rootScope.userInfo.userName='creator@vBless.onmicrosoft.com';
+
 	$scope.campaign = null;
 	$scope.percentComplete=10;
 
 	//chida $http.get("/campaigns/"+$routeParams.ID)
-	httpService.get("/campaigns/"+$routeParams.ID)
+	httpService.get("/"+$rootScope.tenantId+"/campaigns/"+$routeParams.ID)
 		 .then(function(data){
 			$scope.campaign=data.data;
 			console.log("campaign data1" + $scope.campaign);
 			//chida $http.get("/vBless/getFundRaised/" + $routeParams.ID)
+			$scope.fundRaised = 500;
+			$scope.percentComplete = 10;
 			httpService.get("/vBless/getFundRaised/" + $routeParams.ID)
 			.then(
 					function(response) {
-						$scope.fundRaised = response.data;
-						console.log("fund raised1 " + $scope.fundRaised);
-						$scope.percentComplete=($scope.fundRaised/$scope.campaign.goal) *100;
+						if(response.data != "") {
+							$scope.fundRaised = response.data;
+							console.log("fund raised1 " + $scope.fundRaised);
+							$scope.percentComplete=($scope.fundRaised/$scope.campaign.goal) *100;
+							console.log("percent complete " + $scope.percentComplete);
+						}
 					});
 
 	});
-
-	console.log("percent complete " + $scope.percentComplete);
 
 	$scope.editPage=function(){
 		$location.path("/createCampaign/"+$routeParams.ID);
@@ -182,7 +244,10 @@ myApp.controller('campaignListController', function($scope, httpPost,
 		operation, $location, $http, httpService, $rootScope) {
 	console.log("campaignListController initialized");
 //	$rootScope.userId=1; /**This needs to be commented out**/
-	$scope.userId=$scope.userInfo.userName;
+
+//supreetha hardcoding for now. later to be taken from actual user details
+    	$scope.userId=1;
+//	$scope.userId=$scope.userInfo.userName;
 	$scope.updateFormData = function() {
 		operation.setType('update');		//Mandatory
 		operation.setId($scope.cid);		//Mandatory
@@ -190,9 +255,10 @@ myApp.controller('campaignListController', function($scope, httpPost,
 	};
 
 	$scope.campaigns=[];
-
+	//supreetha hardcoded tenant id and user id for now
+	 // $rootScope.tenantId=100;
 	//chida $http.get("/campaigns/").then(function(data){
-	httpService.get("/campaigns/").then(function(data){
+	httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
 		console.log("chida list campaigns");
 		console.log(data);
 		$scope.campaigns=data.data;
@@ -207,7 +273,7 @@ myApp.controller('campaignListController', function($scope, httpPost,
 });
 
 /* manageCampaignController Implementation Start */
-myApp.controller('manageCampaignController', function($rootScope,$scope, $http,httpService, $routeParams,$location) {
+myApp.controller('manageCampaignController', function($rootScope,$scope, $http,httpService, $routeParams,$location,$window) {
 	console.log("manageCampaignController");
 	$scope.userId=$rootScope.userId;
 	$scope.myVar=false;
@@ -216,7 +282,7 @@ myApp.controller('manageCampaignController', function($rootScope,$scope, $http,h
 	//$scope.campaignId=1;
 
 	//chida $http.get("/campaigns/").then(function(data){
-	httpService.get("/campaigns/").then(function(data){
+	httpService.get("/"+$rootScope.tenantId+"/campaigns/").then(function(data){
 		$scope.campaigns=data.data;
 		console.log($scope.campaigns);
 	});
@@ -244,7 +310,9 @@ myApp.controller('manageCampaignController', function($rootScope,$scope, $http,h
 	       //chida $http.post(url, data, config).then(function (response) {
 				 httpService.post(url, data, config).then(function (response) {
 	    	   if(response.data != "FAIL")  {
-	    		   $location.url("list");
+				   //$location.url("list");
+				   $window.location.href ="/#/list/";
+				   $window.location.reload();
 	    	   }
 			});
 
@@ -260,12 +328,10 @@ myApp.controller('manageCampaignController', function($rootScope,$scope, $http,h
 /* updateCampaignStatusController Implementation Start
 myApp.controller('updateCampaignStatusController', function($rootScope,$scope, $http,$routeParams,$location) {
 	console.log("updateCampaignStatusController");
-
 	$scope.updateCampaign=function(){
 		console.log("In update campaign Status: " + $scope.myVar);
 //		$location.path("/manageCampaigns/"+$routeParams.ID);
 	}
-
 });*/
 
 
@@ -283,22 +349,78 @@ myApp.controller('shareController', function($scope, $http, $location) {
 
 /* logoutController Implementation Start */
 myApp.controller('logoutController',
-	['$scope', '$http', 'httpPost', '$location',
-	function($scope, $http, httpPost, $location) {
+	['$scope', '$http', 'httpPost', '$location','$rootScope',
+	function($scope, $http, httpPost, $location,$rootScope) {
 	console.log("logoutController");
 	$scope.logout = function(){
-		
+		$rootScope.userName=""
+		$rootScope.isAdmin=false;
+		$rootScope.isSuperAdmin=false;
+		$rootScope.isLoggedin=false;
 	}
 }]);
 
+//manageTenantsController
+myApp.controller('manageTenantsController', function($rootScope,$scope, $http,httpService, $routeParams,$location) {
+	console.log("manageTenantsController");
+	$scope.userId=$rootScope.userId;
+	$scope.myVar=false;
 
-/* loginController Implementation Start */
-myApp.controller('loginController',
-	['$scope', '$http', 'httpPost', '$location',
-	function($scope, $http, httpPost, $location) {
+	httpService.get("/vBless/getTenants").then(function(data){
+		$scope.tenants=data.data;
+		console.log($scope.tenants);
+	});
+
+});
+
+
+//createTenantController
+myApp.controller('createTenantController', function($rootScope,$scope, $http,httpService, $routeParams,$location) {
+	console.log("createTenantController");
+
+	$scope.doSave = function() {
+			var config= {
+								transformRequest: angular.identity,
+								headers: {'Content-Type': 'application/json'}
+						};
+			console.log("saveFormData");
+
+			httpService.post('/vBless/createTenant/',JSON.stringify($scope.tenant),config).then(function(response) {
+				if(response.data){
+					$location.path("/manageTenant");
+				}
+			});
+		}
+
+
+		$scope.doCancel = function() {
+				$location.path("/manageTenant");
+		}
+});
+
+myApp.controller('LoginController', function($window, $location, $scope, widgetManager) {
 	console.log("LoginController");
-	$scope.login = function(){
-		
-	}
+	var widget = widgetManager.getWidget();
 
-}]);
+	widget.session.exists(function(exists) {
+		if(exists) {
+			widget.signOut();
+			$window.localStorage.clear();
+			$scope = $scope.$new(true);
+		}
+	});
+});
+
+myApp.controller('accessController', function($window,$scope, $rootScope,$routeParams) {
+	console.log("accessController:"+$routeParams.ID);
+	$rootScope.userName=$routeParams.ID;
+	if ($routeParams.ID.includes("admin")){
+		$rootScope.isAdmin = true;
+	}
+	if ($routeParams.ID.includes("super")){
+		$rootScope.isSuperAdmin = true;
+		$rootScope.isAdmin = true;
+	}
+	$rootScope.isLoggedin=true;
+	$window.location.href = '/#/';
+});

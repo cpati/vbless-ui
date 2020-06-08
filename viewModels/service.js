@@ -34,10 +34,13 @@ myApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-myApp.service('httpService',['$http',function($http){
-	  var serverHost="http://localhost:5051/"
+myApp.service('httpService',['$http','$location',function($http,$location){
+	  var serverHost="http://ae2862d7b4b1b11e89d8702d9064280b-1217286264.us-west-2.elb.amazonaws.com:5051"
+		//var serverHost="http://localhost:5051"
+		//var serverHost =  $location.protocol() + "://" + $location.host() + ":5051";
+		console.log("ServerHost " + serverHost);
 		this.get=function(url){
-			console.log("httpService get");
+			console.log("httpService get " + url);
 			return $http.get(serverHost+url);
 		};
 		this.post = function(postUrl, fd, config) {
@@ -169,4 +172,41 @@ myApp.service('campaign', function() {
 	}
 
 	return new Campaign();
+});
+
+myApp.service('tenant', function() {
+	function Tenant(){
+		this.setTenantId=function(tenantId){
+			this.tenantId=tenantId;
+		};
+
+		this.setEmail=function(email){
+			this.email=email;
+		};
+
+		this.setBusinessName=function(businessName){
+			this.businessName=businessName;
+		};
+
+		this.setBrandName=function(brandName){
+			this.brandName=brandName;
+		};
+
+		this.setPhone=function(phone){
+			this.phone=phone;
+		};
+
+		this.setPaypalAccount=function(paypalAccount){
+			this.paypalAccount=paypalAccount;
+		};
+
+		this.LogoUrl=function(logoUrl){
+			this.logoUrl=logoUrl;
+		};
+
+		this.LoginRedirectURL=function(loginRedirectURL){
+			this.loginRedirectURL=loginRedirectURL;
+		};
+	}
+	return new Tenant();
 });

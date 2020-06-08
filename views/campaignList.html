@@ -2,10 +2,10 @@
 	<div class="row">
 		<div class="col-sm-6 col-md-4" ng-repeat="campaign in campaigns" style="padding-top:20px;">
 			<a href="#viewCampaign/{{campaign.campaignId}}" >
-				<div style="{{heroCardCss(campaign.imageBlob)}}">
+				<div style="{{heroCardCss(campaign.imageBlob)}};width: 350px;height: 225px; ">
 					<div class="hero-text">
-						<h1 style="font-size: 30px">{{campaign.campaignTitle}}</h1>
-						<h1 style="font-size: 20px">{{campaign.userId}}</h1>
+						<h1 style="text-transform: uppercase;font-weight:400;font-size: 15px">&nbsp;&nbsp;{{campaign.campaignTitle}}&nbsp;&nbsp;</h1>
+						<!--<h1 style="font-size: 10px">{{campaign.userId}}</h1>-->
 						<br>
 					</div>
 				</div>
